@@ -1,24 +1,33 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
+import { Stack } from "expo-router";
+import CustomHeaderBack from "../app/custom/customheaderback";
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack
+      screenOptions={{
+        headerStyle: { backgroundColor: "#ffffffff" }, // mặc định nền trắng
+        headerTintColor: "white", // màu chữ/title mặc định
+        headerShadowVisible: false, // bỏ line dưới
+        headerTitle: "", // ẩn title mặc định
+        headerBackVisible: false, // tắt back mặc định -> dùng CustomHeaderBack
+      }}
+    >
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="auth/signup"
+        options={{
+          headerShown: true,
+          headerLeft: () => (
+            <CustomHeaderBack showTitle={true} title="Sign Up" />
+          ),
+        }}
+      />
+      <Stack.Screen name="auth/signin" 
+      options={{ 
+        headerShown: true,
+        headerLeft: () => (
+          <CustomHeaderBack showTitle={true} title="Sign In" />
+        ),
+         }} />
+    </Stack>
   );
 }
