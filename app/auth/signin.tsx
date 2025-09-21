@@ -14,8 +14,8 @@ export default function signup() {
   const handleLogin = () => {
     // Xử lý đăng nhập ở đây
     console.log("Đăng nhập");
-    router.push('../home/home');
-  }
+    router.push("../home/homescreens");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.inputbgr}>
@@ -24,9 +24,9 @@ export default function signup() {
       </View>
       <View style={styles.inputbgr}>
         <Text style={styles.inputlabel}>Password</Text>
-        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           <TextInput
-            style={{ borderBottomWidth: 0.5 }}
+            style={{ flex: 1, borderBottomWidth: 0.5, paddingRight: 40 }}
             secureTextEntry={!showPassword} // ẩn/hiện ký tự
           />
           <TouchableOpacity
@@ -41,7 +41,12 @@ export default function signup() {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => {handleLogin()}}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          handleLogin();
+        }}
+      >
         <Text
           style={{
             color: "white",

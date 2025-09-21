@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import CustomHeaderBack from "../app/custom/customheaderback";
+import CustomHeaderAuth from "./custom/customheaderauth";
 export default function RootLayout() {
   return (
     <Stack
@@ -8,7 +8,7 @@ export default function RootLayout() {
         headerTintColor: "white", // màu chữ/title mặc định
         headerShadowVisible: false, // bỏ line dưới
         headerTitle: "", // ẩn title mặc định
-        headerBackVisible: false, // tắt back mặc định -> dùng CustomHeaderBack
+        headerBackVisible: false, // tắt back mặc định -> dùng CustomHeaderAuth
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -17,17 +17,23 @@ export default function RootLayout() {
         options={{
           headerShown: true,
           headerLeft: () => (
-            <CustomHeaderBack showTitle={true} title="Sign Up" />
+            <CustomHeaderAuth showTitle={true} title="Sign Up" />
           ),
         }}
       />
-      <Stack.Screen name="auth/signin" 
-      options={{ 
-        headerShown: true,
-        headerLeft: () => (
-          <CustomHeaderBack showTitle={true} title="Sign In" />
-        ),
-         }} />
+      <Stack.Screen
+        name="auth/signin"
+        options={{
+          headerShown: true,
+          headerLeft: () => (
+            <CustomHeaderAuth showTitle={true} title="Sign In" />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="home"
+        options={{ headerShown: false }}
+      />
     </Stack>
   );
 }

@@ -24,25 +24,25 @@ export default function signup() {
         <Text style={styles.inputlabel}>Email</Text>
         <TextInput style={{ borderBottomWidth: 0.5 }} />
       </View>
-       <View style={styles.inputbgr}>
-      <Text style={styles.inputlabel}>Password</Text>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <TextInput
-          style={{ flex: 1, borderBottomWidth: 0.5, paddingRight: 40 }}
-          secureTextEntry={!showPassword} // ẩn/hiện ký tự
-        />
-        <TouchableOpacity
-          style={{ position: "absolute", right: 0, padding: 8 }}
-          onPress={() => setShowPassword(!showPassword)}
-        >
-          <Ionicons
-            name={showPassword ? "eye-off" : "eye"}
-            size={20}
-            color="#555"
+      <View style={styles.inputbgr}>
+        <Text style={styles.inputlabel}>Password</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TextInput
+            style={{ flex: 1, borderBottomWidth: 0.5, paddingRight: 40 }}
+            secureTextEntry={!showPassword} // ẩn/hiện ký tự
           />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={{ position: "absolute", right: 0, padding: 8 }}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Ionicons
+              name={showPassword ? "eye-off" : "eye"}
+              size={20}
+              color="#555"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
       <TouchableOpacity style={styles.button}>
         <Text
           style={{
@@ -55,7 +55,7 @@ export default function signup() {
         </Text>
       </TouchableOpacity>
       <View style={styles.SigninNav}>
-        <Link href="/(auth)/signin">
+        <Link href="/auth/signin">
           <Text style={{ fontSize: 12, fontFamily: "Poppins_400Regular" }}>
             Already have an account?{" "}
             <Text style={{ color: "#F2896C" }}>Sign in</Text>

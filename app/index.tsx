@@ -31,12 +31,12 @@ export default function Index() {
       </View>
 
       <View style={styles.buttoncontainer}>
-        <Link href="/(auth)/signup" asChild>
+        <Link href="/auth/signup" asChild>
           <TouchableOpacity style={styles.actbutton}>
             <Text style={styles.buttontext}>Sign Up</Text>
           </TouchableOpacity>
         </Link>
-        <Link href="/(auth)/signin" asChild>
+        <Link href="/auth/signin" asChild>
           <TouchableOpacity style={styles.actbutton1}>
             <Text style={styles.buttontext1}>Sign In</Text>
           </TouchableOpacity>
