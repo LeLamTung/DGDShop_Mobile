@@ -19,23 +19,36 @@ export default function CustomHeaderAuth({
 
   if (!fontsLoaded) return null;
   return (
-    <TouchableOpacity
+    <View
       style={{
         flexDirection: "row",
         alignItems: "center",
         paddingHorizontal: 10,
-
       }}
-      onPress={() => router.back()}
     >
-        <View style={{ backgroundColor: "white", borderRadius: 20, padding: 5, elevation: 3}}>
-      <Ionicons name="arrow-back" size={30} color={color}  />
-      </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "white",
+          borderRadius: 20,
+          padding: 5,
+          elevation: 3,
+        }}
+        onPress={() => router.back()}
+      >
+        <Ionicons name="arrow-back" size={30} color={color} />
+      </TouchableOpacity>
       {showTitle && (
-        <Text style={{ color, marginLeft: 20, fontSize: 30, fontFamily: "Poppins_700Bold" }}>
+        <Text
+          style={{
+            color,
+            marginLeft: 20,
+            fontSize: 30,
+            fontFamily: "Poppins_700Bold",
+          }}
+        >
           {title}
         </Text>
       )}
-    </TouchableOpacity>
+    </View>
   );
 }

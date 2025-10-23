@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerTitle: {
-    fontSize: 30,
+    fontSize: 34,
     fontWeight: "600",
     color: "#333",
     fontFamily: "Poppins_700Bold",

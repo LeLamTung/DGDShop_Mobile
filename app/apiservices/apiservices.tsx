@@ -1,84 +1,81 @@
-// Định nghĩa kiểu dữ liệu cho response
+import axios, { AxiosError, AxiosInstance } from "axios";
+
+// Kiểu response chung
 interface ApiResponse<T> {
   data: T | null;
   error: string | null;
   status: number;
 }
 
-// API Service class
 class ApiService {
-  private baseUrl: string;
+  private client: AxiosInstance;
 
   constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+    this.client = axios.create({
+      baseURL: baseUrl,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
-  // GET request
+  // GET
   async get<T>(endpoint: string): Promise<ApiResponse<T>> {
     try {
-      const url = `${this.baseUrl}${endpoint}`;
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await response.json();
-      return {
-        data: response.ok ? (data as T) : null,
-        error: response.ok ? null : data.message || "GET request failed",
-        status: response.status,
-      };
-    } catch (error) {
-      return {
-        data: null,
-        error: error instanceof Error ? error.message : "Unknown error",
-        status: 500,
-      };
+      const response = await this.client.get<T>(endpoint);
+      return { data: response.data, error: null, status: response.status };
+    } catch (err) {
+      return this.handleError<T>(err);
     }
   }
 
-  // POST request
+  // POST
   async post<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
     try {
-      const url = `${this.baseUrl}${endpoint}`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      let dataResponse: any = null;
-   
-      try {
-        dataResponse = await response.json();
-      } catch {
-        // trường hợp backend trả string, không parse được JSON
-        dataResponse = { message: await response.text() };
-      }
-      return {
-        data: response.ok ? dataResponse : null,
-        error: response.ok
-          ? null
-          : dataResponse.message || "POST request failed",
-        status: response.status,
-      };
-    } catch (error) {
+      const response = await this.client.post<T>(endpoint, data);
+      return { data: response.data, error: null, status: response.status };
+    } catch (err) {
+      return this.handleError<T>(err);
+    }
+  }
+
+  // PUT
+  async put<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
+    try {
+      const response = await this.client.put<T>(endpoint, data);
+      return { data: response.data, error: null, status: response.status };
+    } catch (err) {
+      return this.handleError<T>(err);
+    }
+  }
+
+  // DELETE
+  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
+    try {
+      const response = await this.client.delete<T>(endpoint);
+      return { data: response.data, error: null, status: response.status };
+    } catch (err) {
+      return this.handleError<T>(err);
+    }
+  }
+
+  // Xử lý lỗi chung
+  private handleError<T>(err: unknown): ApiResponse<T> {
+    if (axios.isAxiosError(err)) {
+      const axiosErr = err as AxiosError<any>;
       return {
         data: null,
-        error: error instanceof Error ? error.message : "Lỗi server",
-        status: 500,
+        error: axiosErr.response?.data?.message || axiosErr.message,
+        status: axiosErr.response?.status || 500,
       };
     }
+    return { data: null, error: "Unknown error", status: 500 };
   }
 }
 
-// Khởi tạo instance của ApiService
+// Khởi tạo instance
 const apiService = new ApiService(
-  process.env.NEXT_PUBLIC_API_BASE_URL || "https://localhost:44367/api"
- // process.env.NEXT_PUBLIC_API_BASE_URL || "https://localhost:7186/api"
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://10.0.2.2:5000/api"
 );
 
 export default apiService;

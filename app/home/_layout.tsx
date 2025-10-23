@@ -7,8 +7,8 @@ import {
 import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import CustomDetailPrdHeader from "../custom/customdetailprdheader";
 import CustomHeader from "../custom/customheader";
-
 export default function TabLayout() {
   const activeBg = "#fff";
   const inactiveBg = "rgba(255,255,255,0.3)";
@@ -27,13 +27,12 @@ export default function TabLayout() {
   return (
      <Tabs
       screenOptions={({ route }) => ({
-        headerShown: !(route.name === "cart" || route.name === "account"),
+        headerShown: !(route.name === "cart" || route.name === "account" || route.name ==="productdetails"),
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
         headerShadowVisible: false,
-
          //  Gọi CustomHeader thay vì code trực tiếp
-        headerTitle: () => <CustomHeader routeName={route.name} />,
+        headerTitle: () => route.name === "productdetails" ? <CustomDetailPrdHeader/> : <CustomHeader routeName={route.name} />,
         headerRight: () => null, // đã xử lý trong CustomHeader
       })}
     >
@@ -121,6 +120,14 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="productdetails"
+        options={{
+          href: null, // ẩn khỏi thanh tab
+          tabBarStyle: { display: "none" }, // ẩn tab bar khi mở trang này
+          headerShown: true, 
+        }}
+      />
     </Tabs>
   );
 }
@@ -128,15 +135,11 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   tabBar: {
     position: "absolute",
-    bottom: 40,
+    bottom: 35,
     borderRadius: 25,
     backgroundColor: "#F2896C", // màu tabbar
     height: 60,
-    marginHorizontal: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 5,
+    marginHorizontal: 15,
     elevation: 5,
   },
   iconWrapper: {

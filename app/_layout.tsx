@@ -1,7 +1,9 @@
 import { Stack } from "expo-router";
+import Toast from "react-native-toast-message";
 import CustomHeaderAuth from "./custom/customheaderauth";
 export default function RootLayout() {
   return (
+    <>
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: "#ffffffff" }, // mặc định nền trắng
@@ -34,6 +36,16 @@ export default function RootLayout() {
         name="home"
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="buyandpay/cart"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='buyandpay/checkout'
+        options={{ headerShown: false}}
+      />
     </Stack>
+    <Toast />
+    </>
   );
 }
